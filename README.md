@@ -80,6 +80,17 @@ Full setup details, environment variables, and a complete file-by-file project l
 
 ---
 
+## Tools and Technologies Used
+
+In the spirit of the assessment's own instruction to "be resourceful... use ANY tools or technologies available," this submission was built with the help of:
+
+- **GitHub Copilot** and **Claude** (Anthropic) — AI-assisted coding tools used during development of the proof-of-concept application.
+- **Google Search** — used for the company/industry research behind the written report.
+
+Separately from development-time tooling, the proof-of-concept *itself* runs on the **Anthropic Claude API** as the large language model powering its Analyst and Auditor agents at runtime — this is a core part of the application's own architecture, not a development tool, and is described in detail in `poc/README.md` and `context/POC_Design_Decisions.md`.
+
+---
+
 ## Submission contact
 
 This repository has been shared with `jesus.hurtado@cotiviti.com` per the assessment instructions.
