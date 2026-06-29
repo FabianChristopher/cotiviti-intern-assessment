@@ -6,7 +6,7 @@
  *
  * SCOPE -- what this deliberately does and does NOT support:
  *   - Supports .txt and .csv (read directly as UTF-8 text) and .pdf
- *     (text extracted via the `pdf-parse` library).
+ *     (text extracted via the `unpdf` library).
  *   - Does NOT support OCR or scanned/image-based PDFs. This works only
  *     because the bundled sample PDFs (public/samples/*.pdf) are
  *     text-based documents we generated ourselves, not scanned images.
@@ -16,10 +16,23 @@
  *     "Why Not the Alternatives" in the parent project, for the
  *     reasoning (OCR support belongs to a different assessment topic
  *     than the one this demo targets).
+ *
+ * LIBRARY CHOICE NOTE: this originally used `pdf-parse`, which depends
+ * on `pdfjs-dist`, which in turn has an OPTIONAL native dependency on
+ * `@napi-rs/canvas` for page-rendering support we never use (we only
+ * ever extract text, never render a page as an image). That optional
+ * native binary is platform-specific -- it worked fine in local
+ * development on macOS, but the production deployment (Vercel's Linux
+ * serverless runtime) didn't have a matching binary available, which
+ * crashed the ENTIRE route at module-load time with "ReferenceError:
+ * DOMMatrix is not defined" -- for every request, including ones that
+ * never touched a PDF at all. Switched to `unpdf`, which has zero
+ * dependencies and is purpose-built for serverless/edge runtimes
+ * (Vercel, Cloudflare Workers) with no native bindings of any kind.
  * -----------------------------------------------------------------------
  */
 
-import { PDFParse } from "pdf-parse";
+import { extractText as extractPdfText } from "unpdf";
 
 /** File extensions this module knows how to handle, lowercase and
  *  without the leading dot. Used both for validation and for routing to
@@ -61,18 +74,15 @@ function isSupportedExtension(
 }
 
 /**
- * Extracts plain text from a .pdf file's raw bytes using `pdf-parse`.
- *
- * NOTE on the library's API: pdf-parse v2.x exposes a `PDFParse` class
- * rather than the older "call the default export as a function" style
- * documented in many older tutorials. We verified this exact usage
- * against a real generated PDF before relying on it -- see
- * context/POC_Design_Decisions.md in the parent project for that note.
+ * Extracts plain text from a .pdf file's raw bytes using `unpdf`.
+ * `mergePages: true` collapses every page into a single string -- our
+ * sample/uploaded records are always short, single-purpose documents,
+ * so there is no need to keep page boundaries separate.
  */
 async function extractTextFromPdf(buffer: Buffer): Promise<string> {
-  const parser = new PDFParse({ data: buffer });
-  const result = await parser.getText();
-  return result.text;
+  const data = new Uint8Array(buffer);
+  const { text } = await extractPdfText(data, { mergePages: true });
+  return text;
 }
 
 /**
