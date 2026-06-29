@@ -1,0 +1,150 @@
+/*
+ * step-navigator.module.css
+ * -----------------------------------------------------------------------
+ * Styles for the 4-step clickable pipeline navigator (Retrieval ->
+ * Analyst -> Auditor -> Verdict). Each step is its own button so it can
+ * receive real keyboard focus and hover states, not a styled <div> --
+ * this matters for accessibility as well as for the "super responsive
+ * even for hovers" requirement.
+ *
+ * The two @keyframes blocks below are intentionally defined HERE rather
+ * than once in app/globals.css -- see the long comment in that file's
+ * "ANIMATIONS" section for why (Next.js's CSS Modules scoping of
+ * `animation` references can't see keyframes defined in a separate,
+ * non-module stylesheet, which silently breaks the animation).
+ * -----------------------------------------------------------------------
+ */
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.stepButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  padding: 0.3rem 0.4rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.12s ease;
+}
+
+.stepButton:hover:not(:disabled) {
+  background: var(--color-accent-soft);
+  transform: translateY(-1px);
+}
+
+.stepButton:hover:not(:disabled) .bubble {
+  transform: scale(1.08);
+}
+
+.stepButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.stepButton:disabled {
+  cursor: default;
+}
+
+.bubble {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 50%;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border: 2px solid var(--color-border-strong);
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  transition: border-color 0.25s ease, background-color 0.25s ease, color 0.25s ease,
+    box-shadow 0.25s ease, transform 0.15s ease;
+}
+
+.bubbleActive {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
+  animation: pulse-soft 1.6s ease-in-out infinite;
+}
+
+.bubbleComplete {
+  border-color: var(--color-clear);
+  background: var(--color-clear);
+  color: var(--color-text-on-accent);
+}
+
+.bubbleError {
+  border-color: var(--color-flagged);
+  background: var(--color-flagged);
+  color: var(--color-text-on-accent);
+}
+
+.bubbleSelected {
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
+}
+
+.bubbleSpinner {
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  border: 2px solid var(--color-accent-soft);
+  border-top-color: var(--color-accent);
+  animation: spin 0.7s linear infinite;
+}
+
+.label {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  transition: color 0.2s ease, font-weight 0.2s ease;
+}
+
+.labelActive {
+  color: var(--color-text-primary);
+  font-weight: 700;
+}
+
+.connector {
+  flex: 1 1 auto;
+  height: 2px;
+  background: var(--color-border);
+  border-radius: 1px;
+  transition: background-color 0.3s ease;
+}
+
+.connectorComplete {
+  background: var(--color-clear);
+}

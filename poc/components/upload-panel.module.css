@@ -1,0 +1,160 @@
+/*
+ * upload-panel.module.css
+ * -----------------------------------------------------------------------
+ * Styles for the record-selection panel (left pane). Organized into
+ * three visually distinct sub-sections (sample picker, file upload,
+ * paste-text) plus a sticky-feeling "Run Review" action at the bottom,
+ * matching the project requirement that each step live in its own
+ * clearly bounded container.
+ * -----------------------------------------------------------------------
+ */
+
+.sectionLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+}
+
+.sampleLoadError {
+  font-size: 0.78rem;
+  color: var(--color-flagged);
+  margin-top: 0.4rem;
+}
+
+.sectionLabel:not(:first-child) {
+  margin-top: 1.1rem;
+}
+
+.sampleList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.sampleButton {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-align: left;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.55rem;
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  font-size: 0.82rem;
+  transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.sampleButton:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+  box-shadow: var(--shadow-md);
+}
+
+.sampleButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.sampleButtonSelected {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+
+.fileInputWrap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.fileInput {
+  flex: 1;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+/* The browser's native "Choose File" button defaults to unstyled OS
+   chrome, which clashes with the rest of this themed interface. Both
+   pseudo-elements below target that inner button (the standard one for
+   modern browsers, plus the legacy WebKit-prefixed one for older
+   Safari/Chrome) so it picks up the same accent styling and hover
+   affordance as every other button in the app. */
+.fileInput::file-selector-button,
+.fileInput::-webkit-file-upload-button {
+  margin-right: 0.6rem;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.45rem;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.fileInput::file-selector-button:hover,
+.fileInput::-webkit-file-upload-button:hover {
+  background: var(--color-accent);
+  color: var(--color-text-on-accent);
+  border-color: var(--color-accent);
+}
+
+.textarea {
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.55rem;
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-family: inherit;
+  font-size: 0.85rem;
+  resize: vertical;
+}
+
+.textarea:focus {
+  border-color: var(--color-accent);
+}
+
+.selectedFileNote {
+  margin-top: 0.6rem;
+  font-size: 0.78rem;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.runButton {
+  margin-top: 1.1rem;
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 0.55rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background: var(--color-accent);
+  color: var(--color-text-on-accent);
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.runButton:hover:not(:disabled) {
+  background: var(--color-accent-hover);
+}
+
+.runButton:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.runButton:disabled {
+  background: var(--color-border-strong);
+  cursor: not-allowed;
+}

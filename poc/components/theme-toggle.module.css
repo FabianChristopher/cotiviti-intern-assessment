@@ -1,0 +1,35 @@
+/*
+ * theme-toggle.module.css
+ * -----------------------------------------------------------------------
+ * Styles for the light/dark theme toggle button. Scoped to this
+ * component via CSS Modules (Next.js compiles class names here to
+ * unique, file-scoped identifiers at build time), so these rules can
+ * never accidentally leak onto or collide with another component's
+ * `.button` class elsewhere in the app.
+ * -----------------------------------------------------------------------
+ */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-alt);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.button:hover {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.icon {
+  width: 1.1rem;
+  height: 1.1rem;
+}

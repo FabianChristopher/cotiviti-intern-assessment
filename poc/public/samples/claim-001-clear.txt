@@ -1,0 +1,20 @@
+OUTPATIENT CLAIM RECORD
+========================
+
+Claim ID: CLM-2026-04471
+Patient ID: PT-88213
+Provider: Lakeside Family Medicine (NPI 1928374650)
+Date of Service: 2026-05-14
+Place of Service: 11 (Office)
+
+Procedure Code: CPT 99213 - Established patient office visit, low complexity
+Diagnosis Code: ICD-10 J06.9 - Acute upper respiratory infection, unspecified
+
+Billed Amount: $145.00
+Contracted (Allowed) Amount for CPT 99213 in this region: $138.50
+
+Notes:
+Routine follow-up visit for upper respiratory infection symptoms. Billed
+amount is consistent with the contracted rate for this procedure code in
+this region. No prior claims from this provider have been flagged for
+billing irregularities in the past 12 months.

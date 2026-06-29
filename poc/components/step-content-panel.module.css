@@ -1,0 +1,329 @@
+/*
+ * step-content-panel.module.css
+ * -----------------------------------------------------------------------
+ * Styles for the single content panel that shows whichever pipeline
+ * step is currently selected (Retrieval / Analyst / Auditor / Verdict).
+ * Only one step's content is ever visible at a time -- see
+ * components/step-content-panel.tsx -- so this stylesheet covers four
+ * different "views" rather than four separately-stacked cards.
+ *
+ * The two @keyframes blocks below are intentionally defined HERE rather
+ * than once in app/globals.css -- see the long comment in that file's
+ * "ANIMATIONS" section for why: Next.js's CSS Modules processing scopes
+ * `animation` references inside *.module.css files but can't see
+ * keyframes defined in a separate, non-module global stylesheet,
+ * which silently breaks the animation. Defining each keyframe in the
+ * same file as the property that uses it keeps both consistently
+ * scoped together.
+ * -----------------------------------------------------------------------
+ */
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.panel {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  /* Re-triggered on every step switch via a `key` prop in the parent,
+     so navigating between steps always re-plays this entrance motion
+     instead of only animating on first mount. */
+  animation: fade-in-up 0.28s ease both;
+}
+
+.loadingState {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: var(--color-pending);
+  font-style: italic;
+}
+
+.spinnerLarge {
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  border: 3px solid var(--color-pending-soft);
+  border-top-color: var(--color-pending);
+  animation: spin 0.7s linear infinite;
+}
+
+.errorState {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: var(--color-flagged);
+  text-align: center;
+  padding: 1rem 2rem;
+}
+
+.errorIcon {
+  width: 1.8rem;
+  height: 1.8rem;
+}
+
+/* --- Retrieval view ---------------------------------------------------- */
+
+.retrievalMeta {
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.85rem;
+}
+
+.snippetGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  overflow-y: auto;
+}
+
+.snippetCard {
+  border: 1px solid var(--color-border);
+  border-radius: 0.55rem;
+  padding: 0.75rem 0.85rem;
+  background: var(--color-surface-alt);
+  transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.snippetCard:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.snippetCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.snippetId {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.snippetTitle {
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.snippetText {
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+  line-height: 1.45;
+}
+
+/* --- Analyst / Auditor view --------------------------------------------- */
+
+.badgeRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.85rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.badgeFlagged {
+  background: var(--color-flagged-soft);
+  color: var(--color-flagged);
+}
+
+.badgeClear {
+  background: var(--color-clear-soft);
+  color: var(--color-clear);
+}
+
+.badgeNeutral {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+.certaintyText {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+.summary {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px dashed var(--color-border);
+}
+
+.sectionLabel {
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.pointsList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.pointItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  animation: fade-in-up 0.25s ease both;
+}
+
+.pointIcon {
+  flex: 0 0 auto;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 0.1rem;
+  color: var(--color-accent);
+}
+
+.chipsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font-size: 0.72rem;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, transform 0.12s ease;
+}
+
+.chip:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+/* --- Verdict view -------------------------------------------------------- */
+
+.verdictWrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 1rem;
+  padding: 2rem 1.5rem;
+  border-radius: 0.85rem;
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  /* The verdict is the single most important outcome in the whole
+     pipeline -- everything else builds up to it -- so it gets the
+     app's most prominent elevation (--shadow-lg) to visually set it
+     apart as a distinct "result card" rather than just another section
+     of text. */
+  box-shadow: var(--shadow-lg);
+}
+
+.verdictIconWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  margin-bottom: 0.75rem;
+}
+
+.verdictIconFlagged {
+  background: var(--color-flagged);
+  color: var(--color-text-on-accent);
+}
+
+.verdictIconClear {
+  background: var(--color-clear);
+  color: var(--color-text-on-accent);
+}
+
+.verdictIcon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.verdictEyebrow {
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: var(--color-text-secondary);
+  font-weight: 700;
+}
+
+.verdictDecision {
+  font-size: 2.1rem;
+  font-weight: 800;
+  margin: 0.2rem 0;
+}
+
+.verdictDecisionFlagged {
+  color: var(--color-flagged);
+}
+
+.verdictDecisionClear {
+  color: var(--color-clear);
+}
+
+.verdictCertainty {
+  color: var(--color-text-secondary);
+  font-size: 0.88rem;
+  margin-bottom: 0.5rem;
+}
+
+.verdictNote {
+  font-size: 0.9rem;
+  max-width: 30rem;
+}

@@ -1,0 +1,138 @@
+/*
+ * history-list.module.css
+ * -----------------------------------------------------------------------
+ * Styles for the History pane (left pane, when in "history" mode):
+ * a clickable list of past completed reviews plus a "Clear history"
+ * action.
+ *
+ * The @keyframes block below is intentionally defined HERE rather than
+ * once in app/globals.css -- see the long comment in that file's
+ * "ANIMATIONS" section for why (Next.js's CSS Modules scoping of
+ * `animation` references can't see keyframes defined in a separate,
+ * non-module stylesheet, which silently breaks the animation).
+ * -----------------------------------------------------------------------
+ */
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.emptyState {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.5rem;
+  color: var(--color-text-secondary);
+  padding: 2rem 0.5rem;
+}
+
+.emptyStateIcon {
+  width: 2.2rem;
+  height: 2.2rem;
+  opacity: 0.4;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-y: auto;
+}
+
+.entryButton {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.35rem;
+  text-align: left;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.55rem;
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.12s ease,
+    box-shadow 0.15s ease;
+  animation: fade-in-up 0.25s ease both;
+}
+
+.entryButton:hover {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.entrySelected {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+
+.entryTopRow {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.entryPreview {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.entryBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  flex: 0 0 auto;
+}
+
+.entryBadgeFlagged {
+  background: var(--color-flagged-soft);
+  color: var(--color-flagged);
+}
+
+.entryBadgeClear {
+  background: var(--color-clear-soft);
+  color: var(--color-clear);
+}
+
+.entryTimestamp {
+  font-size: 0.72rem;
+  color: var(--color-text-secondary);
+}
+
+.clearButton {
+  margin-top: 0.25rem;
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: 0.78rem;
+  cursor: pointer;
+  padding: 0.3rem 0;
+  text-decoration: underline;
+  transition: color 0.15s ease;
+}
+
+.clearButton:hover {
+  color: var(--color-flagged);
+}

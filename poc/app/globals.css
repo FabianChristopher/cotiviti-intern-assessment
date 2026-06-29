@@ -1,0 +1,199 @@
+/*
+ * globals.css
+ * -----------------------------------------------------------------------
+ * Global, application-wide stylesheet for the TPO Agentic Reviewer demo.
+ *
+ * Contains three things, in order:
+ *   1. The THEME VARIABLE SYSTEM -- a light palette and a dark palette,
+ *      selected by a `data-theme` attribute on <html> (see
+ *      components/theme-toggle.tsx for how that attribute gets set).
+ *      Every other file in this app reads colors exclusively through
+ *      these CSS variables -- no component hard-codes a hex value -- so
+ *      switching themes is a single attribute flip, not a re-render with
+ *      different props threaded through every component.
+ *   2. A base reset + typography setup.
+ *   3. Small reusable ANIMATION keyframes (fade/slide-in, spinner) that
+ *      CSS Modules in individual components reference by name, instead
+ *      of every component re-defining its own @keyframes block.
+ *
+ * Design intent (see context/POC_Design_Decisions.md, section "UI /
+ * Presentation Behavior" in the parent project): a clean, professional,
+ * dashboard-style look -- deliberately NOT reusing any specific
+ * company's brand palette, since this proof of concept is meant to read
+ * as a general-purpose capability demo, not a branded product.
+ * -----------------------------------------------------------------------
+ */
+
+/* ----------------------------------------------------------------------
+ * 1. THEME VARIABLES
+ * -------------------------------------------------------------------- */
+
+:root,
+html[data-theme="light"] {
+  /* Page chrome */
+  --color-bg: #eef1f6; /* page background, behind both panes */
+  --color-bg-header: #ffffff;
+  --color-surface: #ffffff; /* pane / card background */
+  --color-surface-alt: #f8fafc; /* subtle nested-panel background */
+  --color-border: #e2e8f0;
+  --color-border-strong: #cbd5e1;
+
+  /* Text */
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #64748b;
+  --color-text-on-accent: #ffffff;
+
+  /* Accent (primary interactive color) */
+  --color-accent: #2563eb;
+  --color-accent-hover: #1d4ed8;
+  --color-accent-soft: #eff6ff; /* selected/hover background tint */
+
+  /* Semantic status colors -- each has a "soft" background tint used
+     behind badges/banners, and a solid color used for text/borders/icons. */
+  --color-flagged: #dc2626;
+  --color-flagged-soft: #fef2f2;
+  --color-clear: #16a34a;
+  --color-clear-soft: #f0fdf4;
+  --color-pending: #d97706;
+  --color-pending-soft: #fffbeb;
+
+  /* Elevation */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 16px 40px rgba(15, 23, 42, 0.12);
+}
+
+html[data-theme="dark"] {
+  --color-bg: #0a0e1a;
+  --color-bg-header: #0f1424;
+  --color-surface: #131a2c;
+  --color-surface-alt: #0e1422;
+  --color-border: #232c43;
+  --color-border-strong: #2f3a56;
+
+  --color-text-primary: #e8edf6;
+  --color-text-secondary: #8b96ad;
+  --color-text-on-accent: #ffffff;
+
+  --color-accent: #4f8cff;
+  --color-accent-hover: #76a5ff;
+  --color-accent-soft: #16213a;
+
+  --color-flagged: #f87171;
+  --color-flagged-soft: #2a1518;
+  --color-clear: #4ade80;
+  --color-clear-soft: #112318;
+  --color-pending: #fbbf24;
+  --color-pending-soft: #2a2310;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* ----------------------------------------------------------------------
+ * 2. BASE RESET + TYPOGRAPHY
+ * -------------------------------------------------------------------- */
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+  /* The app is a fixed-viewport dashboard layout (see app/page.module.css)
+     rather than a normally-scrolling document -- the page itself never
+     scrolls; individual panes scroll internally if their content is
+     taller than the available space. This rule is the top-level
+     enforcement of that design decision. */
+  overflow: hidden;
+}
+
+body {
+  color: var(--color-text-primary);
+  background: var(--color-bg);
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Smoothly animate color changes when the theme toggles, instead of an
+     abrupt flash between palettes. */
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* A single, consistent keyboard-focus ring for every interactive
+   element in the app (buttons, inputs, textareas), shown only for
+   keyboard/assistive-tech navigation via :focus-visible -- not on every
+   mouse click, which would look noisy. Defining this once here, rather
+   than per-component, guarantees every interactive element gets the
+   same professional, accessible focus treatment. */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* A thin, unobtrusive scrollbar for the internally-scrolling panes,
+   styled to match the active theme rather than using the browser's
+   default scrollbar appearance. */
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: 4px;
+}
+
+/* ----------------------------------------------------------------------
+ * 3. ANIMATIONS
+ * -------------------------------------------------------------------- */
+
+/*
+ * NOTE: the `fade-in-up`, `spin`, and `pulse-soft` keyframes are NOT
+ * defined here, even though every component that uses them imports
+ * this file. They are deliberately duplicated locally inside each
+ * *.module.css file that references them (see
+ * components/step-navigator.module.css, components/step-content-
+ * panel.module.css, components/history-list.module.css).
+ *
+ * Reason: Next.js's CSS Modules processing (under Turbopack) locally
+ * scopes/hashes any `animation`/`animation-name` identifier referenced
+ * inside a *.module.css file -- but it has no visibility into this
+ * plain, non-module global.css file, so it cannot find a matching
+ * `@keyframes` rule to scope consistently. The result was a real,
+ * confirmed bug: the compiled CSS ended up with `animation: ...
+ * step-content-panel-module__hy-72q__spin`, a scoped name with no
+ * actual `@keyframes` block anywhere -- so the browser silently
+ * dropped the animation, leaving every loading spinner static. Once a
+ * `@keyframes` block lives in the SAME module file as the `animation`
+ * property that references it, the bundler scopes both consistently
+ * and the animation works correctly. Defining shared keyframes once,
+ * here, is the more conventional pattern -- but it does not work
+ * given this specific bundler behavior, so the small, one-time cost of
+ * duplicating these 3 short keyframe blocks across a handful of files
+ * is the correct, working tradeoff here.
+ */

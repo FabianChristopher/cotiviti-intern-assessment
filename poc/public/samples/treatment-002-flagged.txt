@@ -1,0 +1,20 @@
+TREATMENT ADHERENCE SUMMARY
+============================
+
+Patient ID: PT-67710
+Care Plan: Type 2 Diabetes Management Program
+Prescribed Regimen: Metformin 500mg twice daily; quarterly A1C lab draws;
+bi-annual ophthalmology screening
+Adherence Period Reviewed: 2026-01-01 to 2026-06-01
+
+Medication Refill Adherence: 38% (pharmacy refill records show a 97-day
+gap with no refill pickup during the review period)
+Lab Draws Completed: 0 of 2 scheduled A1C draws completed
+Most Recent A1C: 9.6% (recorded 7 months ago; worsened from a prior
+reading of 8.1%)
+Ophthalmology Screening: Not completed; currently overdue by 4 months
+
+Notes:
+The care plan has not been adjusted despite a 97-day medication gap and
+two consecutive missed lab draws. The A1C trend is worsening with no
+corresponding clinical follow-up documented anywhere in the record.

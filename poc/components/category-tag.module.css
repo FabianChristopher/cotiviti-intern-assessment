@@ -1,0 +1,39 @@
+/*
+ * category-tag.module.css
+ * -----------------------------------------------------------------------
+ * Styles for the small color-coded "PAY / TRT / OPS" pill used to mark a
+ * sample record or a reference snippet with its TPO category at a
+ * glance. Shared between components/upload-panel.tsx and
+ * components/step-content-panel.tsx so the category color mapping lives
+ * in exactly one place.
+ * -----------------------------------------------------------------------
+ */
+
+.tag {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.1rem;
+  height: 1.4rem;
+  padding: 0 0.4rem;
+  border-radius: 0.3rem;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.payment {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.treatment {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.operations {
+  background: #fef3c7;
+  color: #b45309;
+}

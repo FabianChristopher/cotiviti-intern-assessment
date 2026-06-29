@@ -1,0 +1,16 @@
+DAILY UNIT STAFFING & CENSUS LOG
+==================================
+
+Unit: Med-Surg Floor 3B
+Date: 2026-05-18
+
+Patient Census: 28
+Scheduled Nursing Staff: 7 RNs, 3 CNAs (10 total caregivers)
+Nurse-to-Patient Ratio: 1:4 (unit's target range is 1:4 to 1:5)
+Overtime Hours Logged: 4.5 hours (within normal weekly variance for this unit)
+Incident Reports Filed: 0
+
+Notes:
+Staffing levels and nurse-to-patient ratio are within normal operating
+parameters for this unit at the current census level. No anomalies
+identified for this shift.
