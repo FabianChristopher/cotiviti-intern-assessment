@@ -6,6 +6,8 @@ records — spanning **Treatment, Payment, and Operations (TPO)** — and
 flags pattern anomalies with a fully explained, two-stage decision trail
 you can inspect step by step.
 
+**Live demo: https://tpo-agentic-reviewer.vercel.app**
+
 ## What this demonstrates
 
 Given an uploaded or pasted record (a claim, a treatment-adherence note,

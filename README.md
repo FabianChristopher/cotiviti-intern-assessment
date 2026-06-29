@@ -4,6 +4,8 @@ This repository contains my submission for the Cotiviti Intern performance-based
 
 **Topic chosen: Clinical Decision Making and Pattern Recognition in Health Care** — specifically, agentic reasoning and pattern recognition for **Treatment, Payment, and Operations (TPO)** in healthcare.
 
+**Live demo: https://tpo-agentic-reviewer.vercel.app** (no login required)
+
 ---
 
 ## What's in this repo
