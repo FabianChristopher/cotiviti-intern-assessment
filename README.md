@@ -6,6 +6,8 @@ This repository contains my submission for the Cotiviti Intern performance-based
 
 **Live demo: https://tpo-agentic-reviewer.vercel.app** (no login required)
 
+**Video walkthrough: https://www.loom.com/share/ad75acc0b6554e41a37b3f29260d3047** (also included locally in `video/`)
+
 ---
 
 ## What's in this repo
@@ -23,7 +25,7 @@ cotiviti-intern-assessment/
 |---|---|---|
 | Written report | `report/` | Complete |
 | Slide presentation | `slides/` | Complete |
-| Video walkthrough | `video/` | Complete |
+| Video walkthrough | `video/` ([Loom link](https://www.loom.com/share/ad75acc0b6554e41a37b3f29260d3047)) | Complete |
 | Proof-of-concept demo | `poc/` | Fully working — see below and `poc/README.md` |
 
 ---
