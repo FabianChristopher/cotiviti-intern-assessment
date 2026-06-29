@@ -56,9 +56,13 @@ Includes a light/dark theme toggle (persisted, no flash on load).
 
 - **Next.js 16** (App Router, Turbopack) + **React 19** + **TypeScript**
 - **Anthropic Claude API** (`claude-sonnet-4-6`) for both agents
-- **pdf-parse** for extracting text from uploaded PDF records (no OCR —
+- **unpdf** for extracting text from uploaded PDF records (no OCR —
   the bundled sample PDFs are text-based documents authored for this
-  project, not scanned images)
+  project, not scanned images). Chosen over the more commonly-tutorialed
+  `pdf-parse` because it has zero dependencies and is purpose-built for
+  serverless/edge runtimes — `pdf-parse`'s dependency chain pulls in an
+  optional native binary that worked locally but crashed in production
+  on Vercel; see `context/POC_Design_Decisions.md` for the full incident
 - No database, no vector store — the reference library is a static
   TypeScript array (`lib/retrieval/snippets.ts`); History uses the
   browser's `localStorage`

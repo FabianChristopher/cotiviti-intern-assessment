@@ -85,7 +85,7 @@ export function ThemeToggle() {
 
 function MoonIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
+    <svg viewBox="0 0 24 24" fill="none" className={styles.icon}>
       <path
         d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11Z"
         stroke="currentColor"
@@ -98,7 +98,7 @@ function MoonIcon() {
 
 function SunIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
+    <svg viewBox="0 0 24 24" fill="none" className={styles.icon}>
       <circle cx="12" cy="12" r="4.2" stroke="currentColor" strokeWidth="1.6" />
       <g stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
         <line x1="12" y1="2.5" x2="12" y2="4.5" />
