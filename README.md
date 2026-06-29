@@ -21,9 +21,9 @@ cotiviti-intern-assessment/
 
 | Deliverable | Location | Status |
 |---|---|---|
-| Written report | `report/` | See that folder |
-| Slide presentation | `slides/` | See that folder |
-| Video walkthrough | `video/` | See that folder |
+| Written report | `report/` | Complete |
+| Slide presentation | `slides/` | Complete |
+| Video walkthrough | `video/` | Complete |
 | Proof-of-concept demo | `poc/` | Fully working — see below and `poc/README.md` |
 
 ---
